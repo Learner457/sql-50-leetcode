@@ -88,7 +88,7 @@ ON
     DATEDIFF(w1.recordDate, w2.recordDate) = 1
 WHERE 
     w1.temperature > w2.temperature;
-
+```
 
 
 [1661 - Average Time of Process per Machine](https://leetcode.com/problems/average-time-of-process-per-machine/)

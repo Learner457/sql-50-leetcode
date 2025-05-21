@@ -88,6 +88,8 @@ ON
     DATEDIFF(w1.recordDate, w2.recordDate) = 1
 WHERE 
     w1.temperature > w2.temperature;
+
+-- OR We can use lag() window function to get previous_temperature and record_date columns beside our table and filter it
 ```
 
 

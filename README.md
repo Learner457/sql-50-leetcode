@@ -129,14 +129,17 @@ WHERE bonus < 1000 OR bonus IS NULL
 
 [1280 - Students and Examinations](https://leetcode.com/problems/students-and-examinations/)
 ```sql
-SELECT a.student_id, a.student_name, b.subject_name, COUNT(c.subject_name) AS attended_exams
-FROM Students a
-JOIN Subjects b
-LEFT JOIN Examinations c
-ON a.student_id = c.student_id
-AND b.subject_name = c.subject_name
-GROUP BY 1, 3
-ORDER BY 1, 3 
+-- Beautiful and brain storming one cross join is must
+
+select st.student_id, st.student_name, s.subject_name, 
+count(e.student_id) as attended_exams
+
+from Students st
+cross join Subjects s
+left join Examinations e
+On st.student_id = e.student_id and s.subject_name = e.subject_name
+group by 1,2,3
+order by 1,2,3 
 ```
 [570. Managers with at Least 5 Direct Reports](https://leetcode.com/problems/managers-with-at-least-5-direct-reports)
 ```sql

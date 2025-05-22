@@ -119,12 +119,12 @@ GROUP BY machine_id;
 
 [577 - Employee Bonus](https://leetcode.com/problems/employee-bonus/solutions/)
 ```sql
+-- Note that e.name b.bonus can also be written in select statement
 SELECT name, bonus
 FROM Employee e
 LEFT JOIN Bonus b
 ON e.empId = b.empId
-WHERE bonus < 1000
-OR bonus IS NULL
+WHERE bonus < 1000 OR bonus IS NULL
 ```
 
 [1280 - Students and Examinations](https://leetcode.com/problems/students-and-examinations/)

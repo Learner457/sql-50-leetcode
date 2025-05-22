@@ -95,6 +95,8 @@ WHERE
 
 [1661 - Average Time of Process per Machine](https://leetcode.com/problems/average-time-of-process-per-machine/)
 ```sql
+
+-- 1ST approach is by writing subquery to make temporary table first and then we apply math function
 SELECT machine_id, ROUND(AVG(end - start), 3) AS processing_time
 FROM 
 (SELECT machine_id, process_id, 

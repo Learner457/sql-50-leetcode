@@ -103,6 +103,16 @@ FROM
  FROM Activity 
   GROUP BY machine_id, process_id) AS subq
 GROUP BY machine_id
+
+-- OR this is another approach but this put math expession in one go 
+SELECT 
+    machine_id,
+    round(SUM(CASE WHEN activity_type='start' THEN timestamp*-1 ELSE timestamp END)
+    / (SELECT COUNT(DISTINCT process_id)),3) AS processing_time
+FROM 
+    Activity
+GROUP BY machine_id;
+
 ```
 
 [577 - Employee Bonus](https://leetcode.com/problems/employee-bonus/solutions/)

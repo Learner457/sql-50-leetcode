@@ -152,13 +152,6 @@ WHERE id IN
    HAVING COUNT(*) >= 5
   )
 
--- OR
-SELECT a.name
-FROM Employee a
-JOIN Employee b
-WHERE a.id = b.managerId
-GROUP BY b.managerId
-HAVING COUNT(*) >= 5
 ```
 
 [1934. Confirmation Rate](https://leetcode.com/problems/confirmation-rate/)

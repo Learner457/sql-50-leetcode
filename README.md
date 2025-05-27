@@ -180,6 +180,12 @@ FROM Cinema
 WHERE id % 2 <> 0 
 AND description <> "boring"
 ORDER BY rating DESC
+
+-- To reduce run time, best way 
+select id, movie, description, rating
+from Cinema
+where id%2 !=0 and description != "boring"
+order by rating desc
 ```
 
 [1251. Average Selling Price](https://leetcode.com/problems/average-selling-price/)

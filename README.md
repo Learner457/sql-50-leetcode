@@ -237,6 +237,8 @@ FROM Queries
 GROUP BY query_name
 
 -- OR
+-- This is nice approach. poor rating is defined in question as less than 3 rating so we need to count how many got less than 1/total ratings and then get percentage
+
 SELECT query_name, 
     ROUND(AVG(rating/position), 2) AS quality, 
     ROUND(SUM(

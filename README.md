@@ -168,6 +168,25 @@ FROM Signups s
 LEFT JOIN Confirmations c 
 ON s.user_id = c.user_id 
 GROUP BY s.user_id;  
+
+-- solution written by my own and it is correct
+
+With cte as (
+    select sp.user_id, count(action) as requests_made,
+        round(sum(case when action = "confirmed" then 1 else 0 end),2) as 
+                    confirmed_action 
+                    from  Confirmations cf
+                    right join Signups sp
+                    on sp.user_id = cf.user_id
+                    group by cf.user_id                    
+
+ )
+select user_id, (case when 
+                requests_made = 0 then 0 else 
+               confirmed_action/requests_made end) as confirmation_rate
+from cte
+order by confirmation_rate
+
 ```
 
 [620. Not Boring Movies](https://leetcode.com/problems/not-boring-movies)

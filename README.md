@@ -217,6 +217,7 @@ GROUP BY project_id
 
 [1633. Percentage of Users Attended a Contest](https://leetcode.com/problems/percentage-of-users-attended-a-contest)
 ```sql
+-- Common sense problem. don't use joins. as denominator is same for each contest_id group, use subquery very simple
 -- % desc, contest_id asc, round 2
 SELECT r.contest_id,
        ROUND(COUNT(DISTINCT r.user_id) * 100 / (SELECT COUNT(DISTINCT user_id) FROM Users), 2) AS percentage

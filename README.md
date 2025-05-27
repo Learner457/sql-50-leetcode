@@ -190,14 +190,17 @@ order by rating desc
 
 [1251. Average Selling Price](https://leetcode.com/problems/average-selling-price/)
 ```sql
--- avg(selling), round 2
-SELECT p.product_id, 
-  ROUND(SUM(price * units) / SUM(units), 2) AS average_price
-FROM Prices p
-LEFT JOIN UnitsSold s
-ON p.product_id = s.product_id
-AND purchase_date BETWEEN start_date AND end_date
-GROUP BY p.product_id
+-- avg(selling), round 2 
+-- I solved this problem by creating cte first with price*units and continued writing but that takes 3370 ms. 
+-- This code took only 835 ms. note that try to avoid CTEs if possible it takes more time for code to run
+select p.product_id, 
+        round(coalesce(sum(units * price)/sum(units),0),2) as average_price
+
+        from Prices p
+        left join UnitsSold u
+        On p.product_id = u.product_id and 
+        purchase_date between start_date and end_date
+        group by p.product_id
 ```
 
 [1075. Project Employees I](https://leetcode.com/problems/project-employees-i)

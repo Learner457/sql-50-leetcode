@@ -193,6 +193,7 @@ order by rating desc
 -- avg(selling), round 2 
 -- I solved this problem by creating cte first with price*units and continued writing but that takes 3370 ms. 
 -- This code took only 835 ms. note that try to avoid CTEs if possible it takes more time for code to run
+
 select p.product_id, 
         round(coalesce(sum(units * price)/sum(units),0),2) as average_price
 
@@ -201,6 +202,7 @@ select p.product_id,
         On p.product_id = u.product_id and 
         purchase_date between start_date and end_date
         group by p.product_id
+
 ```
 
 [1075. Project Employees I](https://leetcode.com/problems/project-employees-i)

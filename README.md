@@ -272,6 +272,9 @@ GROUP BY 1, 2
 
 [1174. Immediate Food Delivery II](https://leetcode.com/problems/immediate-food-delivery-ii/)
 ```sql
+-- subquery in the WHERE clause, which gets the minimum order date (MIN(order_date)) for each customer.
+-- This means considering first order placed by a customer.
+
 SELECT
     ROUND((COUNT(CASE WHEN d.order_date = d.customer_pref_delivery_date THEN 1 END) / COUNT(*)) * 100, 2)  immediate_percentage
 FROM Delivery d

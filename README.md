@@ -311,6 +311,13 @@ select round(SUM(order_date = customer_pref_delivery_date)*100/ COUNT(*),2)
 
 [550. Game Play Analysis IV](https://leetcode.com/problems/game-play-analysis-iv/)
 ```sql
+
+-- Visual Flow of Logic:
+-- Login Date: Find the first login date of each player, Recent Login: Add 1 day to the first login to define the "next day."
+-- Count of Players Logging in on the Next Day: Count how many players logged in on that "next day."
+-- Calculate Fraction: Divide that count by the total number of distinct players and round the result.
+-- The absence of a FROM clause after SELECT ROUND(...) AS fraction is valid because the CTEs and subqueries are already providing the necessary data.
+
 WITH login_date AS (SELECT player_id, MIN(event_date) AS first_login
 FROM Activity
 GROUP BY player_id),
@@ -323,6 +330,28 @@ SELECT ROUND((SELECT COUNT(DISTINCT(player_id))
 FROM Activity
 WHERE (player_id, event_date) IN 
 (SELECT player_id, next_day FROM recent_login)) / (SELECT COUNT(DISTINCT player_id) FROM Activity), 2) AS fraction
+
+--or  second logic: we subtract 1 day from the player's event_date to see if it matches the player's first login date.
+
+SELECT
+  ROUND(
+    COUNT(A1.player_id)
+    / (SELECT COUNT(DISTINCT A3.player_id) FROM Activity A3)
+  , 2) AS fraction
+FROM
+  Activity A1
+WHERE
+  (A1.player_id, DATE_SUB(A1.event_date, INTERVAL 1 DAY)) IN (
+    SELECT
+      A2.player_id,
+      MIN(A2.event_date)
+    FROM
+      Activity A2
+    GROUP BY
+      A2.player_id
+  );
+
+
 ```
 [2356. Number of Unique Subjects Taught by Each Teacher](https://leetcode.com/problems/number-of-unique-subjects-taught-by-each-teacher)
 ```sql

@@ -288,6 +288,22 @@ FROM (
     SELECT *, RANK() OVER(partition by customer_id ORDER BY order_date) od
     FROM Delivery) temp
 WHERE temp.od = 1
+
+-- cte approach 
+
+With first_orders as (select customer_id, order_date, customer_pref_delivery_date
+from Delivery 
+where (customer_id, order_date) IN (
+                                     select customer_id, min(order_date)
+                                     from Delivery
+                                     group by customer_id )
+
+)
+
+select round(SUM(order_date = customer_pref_delivery_date)*100/ COUNT(*),2)
+   AS immediate_percentage
+   from first_orders
+
 ```
 
 [550. Game Play Analysis IV](https://leetcode.com/problems/game-play-analysis-iv/)

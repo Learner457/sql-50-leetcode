@@ -437,12 +437,16 @@ HAVING COUNT(DISTINCT product_key) = (
 ](https://leetcode.com/problems/the-number-of-employees-which-report-to-each-employee/)
 
 ```sql
-SELECT e1.employee_id, e1.name, COUNT(e2.employee_id) reports_count, ROUND(AVG(e2.age)) average_age 
-FROM Employees e1, Employees e2
-WHERE e1.employee_id = e2.reports_to
-GROUP BY e1.employee_id
-HAVING reports_count > 0
-ORDER BY e1.employee_id
+
+select e1.employee_id, e1.name, count(e2.employee_id) as reports_count,
+       round(avg(e2.age)) as average_age
+
+from Employees e1
+left join Employees e2
+On e1.employee_id = e2.reports_to
+group by e1.employee_id, e1.name
+having count(e2.employee_id) >=1
+order by 1
 ```
 [1789. Primary Department for Each Employee
 ](https://leetcode.com/problems/primary-department-for-each-employee/?envType=study-plan-v2&envId=top-sql-50)

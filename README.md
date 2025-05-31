@@ -554,6 +554,12 @@ WHERE r.salary_rank <=3;
 SELECT user_id, CONCAT(UPPER(LEFT(name, 1)), LOWER(RIGHT(name, LENGTH(name)-1))) AS name
 FROM Users
 ORDER BY user_id
+
+--OR  Using Concat and substr functions
+select user_id,
+   concat(Upper(substr(name,1,1)), lower(substr(name,2))) as name
+from Users
+order by user_id
 ```
 
 [1527. Patients With a Condition](https://leetcode.com/problems/patients-with-a-condition)

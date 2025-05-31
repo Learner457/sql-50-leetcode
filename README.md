@@ -684,6 +684,14 @@ GROUP_CONCAT(DISTINCT product) AS 'products'
 FROM Activities
 GROUP BY sell_date
 ORDER BY sell_date
+
+-- little modification
+
+select sell_date, count(distinct product) as num_sold, 
+ group_concat(distinct product order by product asc) as products
+
+from Activities
+group by sell_date
 ```
 
 [1341. Movie Rating](https://leetcode.com/problems/movie-rating/)

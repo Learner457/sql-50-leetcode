@@ -521,14 +521,13 @@ WHEN product_id NOT IN
 
 [1978. Employees Whose Manager Left the Company](https://leetcode.com/problems/employees-whose-manager-left-the-company)
 ```sql
-SELECT employee_id
-FROM Employees
-WHERE manager_id NOT IN (
-    SELECT employee_id 
-    FROM Employees
-)
-AND salary < 30000
-ORDER BY employee_id
+select employee_id 
+
+from Employees
+where salary < 30000 and manager_id not in (
+                                       select employee_id from Employees
+                                        )
+order by employee_id
 ```
 
 [185. Department Top Three Salaries](https://leetcode.com/problems/department-top-three-salaries)

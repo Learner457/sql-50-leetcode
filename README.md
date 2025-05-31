@@ -586,6 +586,17 @@ DELETE p
 FROM Person p, Person q
 WHERE p.id > q.id
 AND q.Email = p.Email
+
+-- OR best approach scalable for large datasets
+DELETE FROM person
+WHERE id NOT IN (
+    SELECT * FROM (
+        SELECT MIN(id)
+        FROM person
+        GROUP BY email
+    ) AS valid_ids
+);
+
 ```
 
 [176. Second Highest Salary](https://leetcode.com/problems/second-highest-salary)

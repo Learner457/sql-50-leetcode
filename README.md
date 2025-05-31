@@ -421,6 +421,16 @@ SELECT COALESCE(
   ORDER BY num DESC
   LIMIT 1), null) 
   AS num
+
+-- OR CTE APPROACH
+
+With cte as (select num, count(num) as single_occurance
+            from MyNumbers 
+            group by num
+            having count(num) =1 
+               )
+select max(num) as num
+from cte
 ```
 
 [1045. Customers Who Bought All Products](https://leetcode.com/problems/customers-who-bought-all-products/)
